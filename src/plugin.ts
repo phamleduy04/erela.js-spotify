@@ -8,7 +8,7 @@ import {
     SearchQuery,
     ModifyRequest
 } from "@phamleduy04/erela.js";
-import fetch from "petitio";
+import { request } from "undici";
 
 const BASE_URL = "https://api.spotify.com/v1";
 const REGEX = /(?:https:\/\/open\.spotify\.com\/|spotify:)(?:.+)?(track|playlist|album)[\/:]([A-Za-z0-9]+)/;
@@ -106,12 +106,15 @@ export class Spotify extends Plugin {
         manager.search = this.search.bind(this);
     }
 
-    public makeRequest<T>(endpoint: string, modify: ModifyRequest = () => void 0): Promise<T> {
-        const req = fetch(`${BASE_URL}${/^\//.test(endpoint) ? endpoint : `/${endpoint}`}`)
-            .header("Authorization", this.token);
-
+    public async makeRequest<T>(endpoint: string, modify: ModifyRequest = () => void 0): Promise<T> {
+        const req = await request(`${BASE_URL}${/^\//.test(endpoint) ? endpoint : `/${endpoint}`}`, {
+            headers: {
+                Authorization: this.token,
+            },
+        });
+        console.log(`${BASE_URL}${/^\//.test(endpoint) ? endpoint : `/${endpoint}`}`);
         modify(req);
-        return req.json();
+        return req.body.json();
     }
 
 
@@ -158,6 +161,7 @@ export class Spotify extends Plugin {
 
     private async getAlbumTracks(id: string): Promise<Result> {
         const album = await this.makeRequest<Album>(`albums/${id}`)
+        console.log(album);
         const tracks = album.tracks.items.filter(this.filterNullOrUndefined).map(item => Spotify.convertToUnresolved(item));
         let next = album.tracks.next, page = 1;
 
@@ -207,11 +211,14 @@ export class Spotify extends Plugin {
     }
 
     private async renewToken(): Promise<number> {
-        const { access_token, expires_in } = await fetch("https://accounts.spotify.com/api/token", "POST")
-            .query("grant_type", "client_credentials")
-            .header("Authorization", `Basic ${this.authorization}`)
-            .header("Content-Type", "application/x-www-form-urlencoded")
-            .json();
+
+        const { access_token, expires_in } = await request("https://accounts.spotify.com/api/token?grant_type=client_credentials", {
+            method: "POST",
+            headers: {
+                Authorization: `Basic ${this.authorization}`,
+                "Content-Type": "application/x-www-form-urlencoded",
+            },
+        }).then(res => res.body.json());
 
         if (!access_token) {
             throw new Error("Invalid Spotify client.");

@@ -3,12 +3,12 @@ lockfileVersion: 5.3
 specifiers:
   '@phamleduy04/erela.js': latest
   '@types/node': ^17.0.23
-  petitio: ^1.4.0
   typescript: ^4.6.3
+  undici: ^5.0.0
 
 dependencies:
-  '@phamleduy04/erela.js': 2.3.16
-  petitio: 1.4.0
+  '@phamleduy04/erela.js': 2.3.17
+  undici: 5.0.0
 
 devDependencies:
   '@types/node': 17.0.23
@@ -21,8 +21,8 @@ packages:
     engines: {node: '>=16.9.0'}
     dev: false
 
-  /@phamleduy04/erela.js/2.3.16:
-    resolution: {integrity: sha512-+E9e24H4ZYWrtmbQkMtD5P7zQGIXzfO+ytj6EMqi5HvbOZBzmpalo+vkFyEjsC2M1ZJKLsfUE/J+aCGiLMc9GQ==}
+  /@phamleduy04/erela.js/2.3.17:
+    resolution: {integrity: sha512-kz49ToJ/yfpg+ruK21WznbFzXLqi9xzjrlO/J2mMwCQtfWzEj7kZk3jgoqf456fikzLakdBxTsuPaxDkVuRfkw==}
     engines: {node: '>=16.0.0'}
     dependencies:
       '@discordjs/collection': 0.5.0
@@ -36,11 +36,6 @@ packages:
   /@types/node/17.0.23:
     resolution: {integrity: sha512-UxDxWn7dl97rKVeVS61vErvw086aCYhDLyvRQZ5Rk65rZKepaFdm53GeqXaKBuOhED4e9uWq34IC3TdSdJJ2Gw==}
     dev: true
-
-  /petitio/1.4.0:
-    resolution: {integrity: sha512-9LaVd/5BLmbNU8Q4Ax8NezihiPt2ISNqi2vKilEchSSf+YSOXxfsLUb0SUmDskm1WkBOVTsqdyuyYI0RYKqr0Q==}
-    engines: {node: '>=12.3.0'}
-    dev: false
 
   /typescript/4.6.3:
     resolution: {integrity: sha512-yNIatDa5iaofVozS/uQJEl3JRWLKKGJKh6Yaiv0GLGSuhpFJe7P3SbHZ8/yjAHRQwKRoA6YZqlfjXWmVzoVSMw==}

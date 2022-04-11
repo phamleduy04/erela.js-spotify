@@ -1,6 +1,6 @@
 {
   "name": "@phamleduy04/erela.js-spotify",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "description": "Spotify plugin for Erela.JS",
   "main": "dist/index.js",
   "files": [
@@ -8,6 +8,7 @@
   ],
   "scripts": {
     "build": "tsc",
+    "pack": "tsc && npm pack",
     "publish:stable": "yarn build && yarn publish --access=public"
   },
   "keywords": [
@@ -23,7 +24,7 @@
   },
   "dependencies": {
     "@phamleduy04/erela.js": "latest",
-    "petitio": "^1.4.0"
+    "undici": "^5.0.0"
   },
   "engines": {
     "node": ">=14.x.x"
